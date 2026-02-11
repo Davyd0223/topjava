@@ -21,7 +21,6 @@ public class MealServlet extends HttpServlet {
     private List<Meal> meals;
 
     public void init() throws ServletException {
-        super.init();
         meals = Arrays.asList(
                 new Meal(LocalDateTime.of(2024, 4, 25, 12, 30), "Бургер", 850),
                 new Meal(LocalDateTime.of(2024, 4, 25, 18, 0), "Пицца", 1950),
@@ -32,7 +31,7 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<MealTo> mealToList = filteredByStreams(meals, LocalTime.of(0, 0), LocalTime.of(23, 59), CALORIES_PER_DAY);
+        List<MealTo> mealToList = filteredByStreams(meals, LocalTime.of(0, 0), LocalTime.of(23, 59, 59), CALORIES_PER_DAY);
 
         request.setAttribute("meals", mealToList);
         request.getRequestDispatcher("/WEB-INF/jsp/meals.jsp").forward(request, response);
