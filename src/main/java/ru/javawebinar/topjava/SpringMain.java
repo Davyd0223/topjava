@@ -15,8 +15,7 @@ import java.util.List;
 
 public class SpringMain {
     public static void main(String[] args) {
-        // java 7 automatic resource management (ARM)
-        try(ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
+        try (ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
             MealRestController mealRestController = context.getBean(MealRestController.class);
             List<MealTo> list = mealRestController.getAll();
             for (MealTo meals : list) {

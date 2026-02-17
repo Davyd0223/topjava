@@ -1,37 +1,50 @@
 package ru.javawebinar.topjava.service;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
-import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static ru.javawebinar.topjava.util.DateTimeUtil.isBetweenHalfOpen;
+import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 
 @Service
 public class MealService {
 
     private final MealRepository repository;
-    public MealService(@Qualifier("inMemoryMealRepository") MealRepository repository) {
+
+    public MealService(MealRepository repository) {
         this.repository = repository;
     }
 
-    public Meal create(Meal meal,int authUserId) {
-        return repository.save(meal, authUserId);
+    public Meal create(Meal meal, int userId) {
+        return repository.save(meal, userId);
     }
 
-    public void update(Meal meal, int authUserId) {
-        checkNotFound(repository.save(meal, authUserId),meal.getId());
+    public void update(Meal meal, int userId) {
+        checkNotFound(repository.save(meal, userId), meal.getId());
     }
 
-    public Meal get(int id,int authUserId) {
-        return checkNotFound(repository.get(id, authUserId), id);
+    public Meal get(int id, int userId) {
+        return checkNotFound(repository.get(id, userId), id);
     }
 
-    public void delete(int id,int authUserId) {
-        checkNotFound(repository.delete(id, authUserId), id);
+    public void delete(int id, int userId) {
+        checkNotFound(repository.delete(id, userId), id);
     }
 
-    public List<Meal> getAll(int authUserId) {
-        return repository.getAll(authUserId);
+    public List<Meal> getAll(int userId) {
+        return repository.getAll(userId);
+    }
+
+    public List<Meal> getBetweenDates(LocalDate startDate,LocalDate endDate, LocalTime startTime, LocalTime endTime, int userId) {
+        return repository.getAll(userId).stream()
+                .filter(meal -> !meal.getDate().isBefore(startDate) && !meal.getDate().isAfter(endDate) &&
+                        isBetweenHalfOpen(meal.getTime(), startTime, endTime))
+                .collect(Collectors.toList());
     }
 }

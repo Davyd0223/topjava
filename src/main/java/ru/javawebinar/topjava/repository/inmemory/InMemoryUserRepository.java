@@ -33,7 +33,7 @@ public class InMemoryUserRepository implements UserRepository {
             users.put(user.getId(), user);
             return user;
         }
-        return users.computeIfPresent(user.getId(), (id, oldMeal) -> user);
+        return users.computeIfPresent(user.getId(), (id, oldUser) -> user);
     }
 
     @Override
@@ -45,7 +45,8 @@ public class InMemoryUserRepository implements UserRepository {
     @Override
     public List<User> getAll() {
         log.info("getAll");
-        return users.values().stream().sorted(Comparator.comparing(User::getName))
+        return users.values().stream()
+                .sorted(Comparator.comparing(User::getName).thenComparing(User::getEmail))
                 .collect(Collectors.toList());
     }
 
@@ -53,7 +54,7 @@ public class InMemoryUserRepository implements UserRepository {
     public User getByEmail(String email) {
         log.info("getByEmail {}", email);
         return users.values()
-                .stream().
-                filter(user -> user.getEmail().equals(email)).findFirst().orElse(null);
+                .stream()
+                .filter(user -> user.getEmail().equalsIgnoreCase(email)).findFirst().orElse(null);
     }
 }
