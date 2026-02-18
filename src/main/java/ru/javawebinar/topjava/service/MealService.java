@@ -15,7 +15,7 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 @Service
 public class MealService {
 
-    private final MealRepository repository;
+    protected final MealRepository repository;
 
     public MealService(MealRepository repository) {
         this.repository = repository;
@@ -41,10 +41,7 @@ public class MealService {
         return repository.getAll(userId);
     }
 
-    public List<Meal> getBetweenDates(LocalDate startDate,LocalDate endDate, LocalTime startTime, LocalTime endTime, int userId) {
-        return repository.getAll(userId).stream()
-                .filter(meal -> !meal.getDate().isBefore(startDate) && !meal.getDate().isAfter(endDate) &&
-                        isBetweenHalfOpen(meal.getTime(), startTime, endTime))
-                .collect(Collectors.toList());
+    public List<Meal> getBetweenDates(LocalDate startDate, LocalDate endDate, int userId) {
+        return repository.getBetweenInclusive(startDate, endDate, userId);
     }
 }
