@@ -6,15 +6,14 @@ import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.to.MealTo;
-import ru.javawebinar.topjava.util.DateTimeUtil;
-import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.SecurityUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import static ru.javawebinar.topjava.util.MealsUtil.getFilteredTos;
+import static ru.javawebinar.topjava.util.MealsUtil.getTos;
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkIsNew;
 
@@ -57,7 +56,7 @@ public class MealRestController {
         log.info("getAll");
         int userId = SecurityUtil.authUserId();
         List<Meal> meals = service.getAll(userId);
-        return MealsUtil.getTos(meals, SecurityUtil.authUserCaloriesPerDay());
+        return getTos(meals, SecurityUtil.authUserCaloriesPerDay());
     }
 
     public List<MealTo> getBetween(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
@@ -65,10 +64,7 @@ public class MealRestController {
         int userId = SecurityUtil.authUserId();
 
         List<Meal> meals = service.getBetweenDates(startDate, endDate, userId);
-        List<MealTo> mealsWithExcess = MealsUtil.getTos(meals, SecurityUtil.authUserCaloriesPerDay());
 
-        return mealsWithExcess.stream()
-                .filter(mealTo -> DateTimeUtil.isBetweenHalfOpen(mealTo.getTime(), startTime, endTime))
-                .collect(Collectors.toList());
+        return getFilteredTos(meals, SecurityUtil.authUserCaloriesPerDay(), startTime, endTime);
     }
 }

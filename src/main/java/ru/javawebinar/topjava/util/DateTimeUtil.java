@@ -12,8 +12,8 @@ public class DateTimeUtil {
         return !lt.isBefore(startTime) && lt.isBefore(endTime);
     }
 
-    public static boolean filteredDatesInterval(LocalDate lt, LocalDate startDate, LocalDate endDate) {
-        return !lt.isBefore(startDate) && !lt.isAfter(endDate);
+    public static boolean isBetweenDatesInterval(LocalDate ld, LocalDate startDate, LocalDate endDate) {
+        return !ld.isBefore(startDate) && !ld.isAfter(endDate);
     }
 
     public static String toString(LocalDateTime ldt) {
