@@ -7,7 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,15 @@ public class MealsUtil {
             new Meal(LocalDateTime.of(2026, Month.JANUARY, 31, 10, 0), "Завтрак", 1000),
             new Meal(LocalDateTime.of(2026, Month.JANUARY, 31, 13, 0), "Обед", 500),
             new Meal(LocalDateTime.of(2026, Month.JANUARY, 31, 20, 0), "Ужин", 410)
+    );
+
+    public static final List<Meal> adminMeals = Arrays.asList(
+            new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 16, 10, 0), "Завтрак", 500),
+            new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 16, 13, 0), "Обед", 1800),
+            new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 16, 20, 0), "Ужин", 500),
+            new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 17, 10, 0), "Завтрак", 1000),
+            new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 17, 13, 0), "Обед", 1500),
+            new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 17, 13, 0), "Ужин", 800)
     );
 
     public static List<MealTo> getTos(Collection<Meal> meals, int caloriesPerDay) {

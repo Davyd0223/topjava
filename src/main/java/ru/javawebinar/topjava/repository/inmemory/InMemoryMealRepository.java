@@ -3,10 +3,9 @@ package ru.javawebinar.topjava.repository.inmemory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -24,11 +23,8 @@ public class InMemoryMealRepository implements MealRepository {
     private final AtomicInteger counter = new AtomicInteger(0);
 
     {
-        save(new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 16, 10, 0), "Завтрак", 500), 1);
-        save(new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 16, 13, 0), "Обед", 1800), 1);
-        save(new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 16, 20, 0), "Ужин", 500), 1);
-        save(new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 17, 10, 0), "Завтрак", 1000), 1);
-        save(new Meal(LocalDateTime.of(2026, Month.FEBRUARY, 17, 13, 0), "Обед", 1500), 1);
+        MealsUtil.meals.forEach(meal -> save(meal, 1));
+        MealsUtil.adminMeals.forEach(meal -> save(meal, 2));
     }
 
     @Override
@@ -40,7 +36,6 @@ public class InMemoryMealRepository implements MealRepository {
             return meal;
         }
         return meals.computeIfPresent(meal.getId(), (id, oldMeal) -> {
-            meal.setId(userId);
             return meal;
         });
     }

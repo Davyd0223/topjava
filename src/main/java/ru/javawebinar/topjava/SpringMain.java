@@ -17,7 +17,7 @@ public class SpringMain {
     public static void main(String[] args) {
         try (ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
             MealRestController mealRestController = context.getBean(MealRestController.class);
-            List<MealTo> list = mealRestController.getAll();
+            List<MealTo> list = mealRestController.getBetween(null, null, null, null);
             for (MealTo meals : list) {
                 System.out.println("Meals: " + meals);
             }
