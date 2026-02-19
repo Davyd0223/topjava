@@ -35,9 +35,7 @@ public class InMemoryMealRepository implements MealRepository {
             meals.put(meal.getId(), meal);
             return meal;
         }
-        return meals.computeIfPresent(meal.getId(), (id, oldMeal) -> {
-            return meal;
-        });
+        return meals.computeIfPresent(meal.getId(), (id, oldMeal) -> meal);
     }
 
     @Override
