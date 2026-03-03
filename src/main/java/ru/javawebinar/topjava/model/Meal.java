@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.model;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,7 +22,9 @@ import java.time.LocalTime;
 })
 
 @Entity
-@Table(name = "meal")
+@Table(name = "meal", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "date_time"})
+})
 public class Meal extends AbstractBaseEntity {
 
     public static final String DELETE = "Meal.delete";
@@ -42,8 +45,9 @@ public class Meal extends AbstractBaseEntity {
     @Range(min = 10, max = 10000)
     private int calories;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Meal() {
