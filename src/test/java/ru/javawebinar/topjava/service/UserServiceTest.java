@@ -12,7 +12,7 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 public abstract class UserServiceTest extends AbstractServiceTest {
@@ -83,5 +83,13 @@ public abstract class UserServiceTest extends AbstractServiceTest {
     public void getAll() {
         List<User> all = service.getAll();
         USER_MATCHER.assertMatch(all, admin, guest, user);
+    }
+
+    @Test
+    public void getWithMeals() {
+        User user = service.getWithMeals(USER_ID);
+        assertNotNull(user);
+        assertNotNull(user.getMeals());
+        assertFalse(user.getMeals().isEmpty());
     }
 }
