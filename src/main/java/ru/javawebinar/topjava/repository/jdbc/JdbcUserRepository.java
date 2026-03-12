@@ -12,7 +12,6 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class JdbcUserRepository implements UserRepository {
@@ -72,10 +71,5 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     public List<User> getAll() {
         return jdbcTemplate.query("SELECT * FROM users ORDER BY name, email", ROW_MAPPER);
-    }
-
-    @Override
-    public User getWithMeals(int id) {
-        return null;
     }
 }

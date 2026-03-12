@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -10,10 +9,13 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.time.Month;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static ru.javawebinar.topjava.MealTestData.*;
-import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
-import static ru.javawebinar.topjava.UserTestData.USER_ID;
+import static ru.javawebinar.topjava.MealTestData.NOT_FOUND;
+import static ru.javawebinar.topjava.MealTestData.getNew;
+import static ru.javawebinar.topjava.MealTestData.getUpdated;
+import static ru.javawebinar.topjava.UserTestData.*;
 
 public abstract class MealServiceTest extends AbstractServiceTest {
     @Autowired
@@ -77,7 +79,7 @@ public abstract class MealServiceTest extends AbstractServiceTest {
     @Test
     public void updateNotOwn() {
         NotFoundException exception = assertThrows(NotFoundException.class, () -> service.update(getUpdated(), ADMIN_ID));
-        Assert.assertEquals("Not found entity with id=" + MEAL1_ID, exception.getMessage());
+        assertEquals("Not found entity with id=" + MEAL1_ID, exception.getMessage());
         MEAL_MATCHER.assertMatch(service.get(MEAL1_ID, USER_ID), meal1);
     }
 
@@ -98,4 +100,18 @@ public abstract class MealServiceTest extends AbstractServiceTest {
     public void getBetweenWithNullDates() {
         MEAL_MATCHER.assertMatch(service.getBetweenInclusive(null, null, USER_ID), meals);
     }
+
+    @Test
+    public void getWithUser() {
+        Meal meal = service.getWithUser(MEAL1_ID, USER_ID);
+        MEAL_MATCHER.assertMatch(meal, meal1);
+        USER_MATCHER.assertMatch(meal.getUser(), user);
+    }
+    /*@Test
+    public void getWithUser() {
+        Meal meal = service.getWithUser(MEAL1_ID, USER_ID);
+        assertNotNull(meal);
+        assertNotNull(meal.getUser());
+        assertEquals(USER_ID, meal.getUser().getId().intValue());
+    }*/
 }
