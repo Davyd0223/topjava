@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
+import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
@@ -22,6 +24,9 @@ import static ru.javawebinar.topjava.UserTestData.*;
 public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Autowired
+    private Environment environment;
+
+    @Autowired
     protected UserService service;
 
     @Autowired
@@ -35,6 +40,12 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         cacheManager.getCache("users").clear();
         if (jpaUtil != null) {
             jpaUtil.clear2ndLevelHibernateCache();
+        } else {
+            boolean isJpa = environment.acceptsProfiles(Profiles.JPA) ||
+                    environment.acceptsProfiles(Profiles.DATAJPA);
+            if (isJpa) {
+                jpaUtil.clear2ndLevelHibernateCache();
+            }
         }
     }
 
