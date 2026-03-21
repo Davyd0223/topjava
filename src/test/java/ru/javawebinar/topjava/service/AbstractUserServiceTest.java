@@ -38,15 +38,14 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Before
     public void setup() {
         cacheManager.getCache("users").clear();
-        if (jpaUtil != null) {
+        if (isJpaProfile()) {
             jpaUtil.clear2ndLevelHibernateCache();
-        } else {
-            boolean isJpa = environment.acceptsProfiles(Profiles.JPA) ||
-                    environment.acceptsProfiles(Profiles.DATAJPA);
-            if (isJpa) {
-                jpaUtil.clear2ndLevelHibernateCache();
-            }
         }
+    }
+
+    private boolean isJpaProfile() {
+        return environment.acceptsProfiles(Profiles.JPA) ||
+                environment.acceptsProfiles(Profiles.DATAJPA);
     }
 
     @Test
