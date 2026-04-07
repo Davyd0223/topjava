@@ -115,10 +115,6 @@ public class User extends AbstractNamedEntity {
         this.registered = registered;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public int getCaloriesPerDay() {
         return caloriesPerDay;
     }
@@ -129,6 +125,10 @@ public class User extends AbstractNamedEntity {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Set<Role> getRoles() {

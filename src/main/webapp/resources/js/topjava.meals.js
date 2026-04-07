@@ -34,11 +34,10 @@ function renderDeleteBtn(data, type, row) {
     return data;
 }
 
-/*
 function updateFilteredTable() {
     $.ajax({
-        type: "GET",
-        url: ctx.ajaxUrl + "filter",
+        url: ctx.ajaxUrl + 'filter',
+        type: 'GET',
         data: {
             startDate: $('#startDate').val(),
             endDate: $('#endDate').val(),
@@ -48,4 +47,9 @@ function updateFilteredTable() {
     }).done(function (data) {
         ctx.datatableApi.clear().rows.add(data).draw();
     });
-}*/
+}
+
+function resetFilter() {
+    $('#filter')[0].reset();
+    ctx.datatableApi.ajax.reload();
+}

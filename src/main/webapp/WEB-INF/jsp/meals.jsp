@@ -30,6 +30,9 @@
         <button type="button" onclick="updateFilteredTable()">
             <spring:message code="meal.filter"/>
         </button>
+        <button type="button" onclick="resetFilter()">
+            <spring:message code="common.resetFilter"/>
+        </button>
     </form>
     <hr>
     <button type="button" onclick="add()">
