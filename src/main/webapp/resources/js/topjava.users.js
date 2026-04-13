@@ -26,9 +26,8 @@ $(function () {
 function enable(checkbox, id) {
     var enabled = checkbox.is(':checked');
     $.ajax({
-        url: ctx.ajaxUrl + id,
-        type: 'PATCH',
-        data: {enabled: enabled}
+        url: ctx.ajaxUrl + id + '?enabled=' + enabled,
+        type: 'PATCH'
     }).done(function () {
         checkbox.closest('tr').toggleClass('disabled', !enabled);
         successNoty(enabled ? 'Enabled' : 'Disabled');

@@ -55,10 +55,7 @@ public class UserService {
 
     @Transactional
     public void enable(int id, boolean enabled) {
-        User user = repository.get(id);
-        if (user == null) {
-            throw new NotFoundException("User not found with id=" + id);
-        }
+        User user = get(id);
         user.setEnabled(enabled);
     }
 
