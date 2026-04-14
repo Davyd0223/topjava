@@ -1,10 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
+<!DOCTYPE html>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
+<script type="text/javascript">
+    let i18n = {
+        "addTitle": "<spring:message code='addTitle'/>",
+        "editTitle": "<spring:message code='editTitle'/>",
+        "common.confirm": "<spring:message code='common.confirm'/>",
+        "common.deleted": "<spring:message code='common.deleted'/>",
+        "common.saved": "<spring:message code='common.saved'/>",
+        "common.errorStatus": "<spring:message code='common.errorStatus'/>"
+    }
+</script>
 <script type="text/javascript" src="resources/js/topjava.common.js" defer></script>
 <script type="text/javascript" src="resources/js/topjava.meals.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
@@ -12,7 +22,6 @@
 <div class="jumbotron pt-4">
     <div class="container">
         <h3 class="text-center"><spring:message code="meal.title"/></h3>
-        <%--https://getbootstrap.com/docs/4.0/components/card/--%>
         <div class="card border-dark">
             <div class="card-body pb-0">
                 <form id="filter">
@@ -62,21 +71,7 @@
                 <th></th>
             </tr>
             </thead>
-            <c:forEach items="${requestScope.meals}" var="meal">
-                <jsp:useBean id="meal" type="ru.javawebinar.topjava.to.MealTo"/>
-                <tr data-meal-excess="${meal.excess}">
-                    <td>
-                            <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>
-                            <%--<%=TimeUtil.toString(meal.getDateTime())%>--%>
-                            <%--${fn:replace(meal.dateTime, 'T', ' ')}--%>
-                            ${fn:formatDateTime(meal.dateTime)}
-                    </td>
-                    <td>${meal.description}</td>
-                    <td>${meal.calories}</td>
-                    <td><a><span class="fa fa-pencil"></span></a></td>
-                    <td><a onclick="deleteRow(${meal.id})"><span class="fa fa-remove"></span></a></td>
-                </tr>
-            </c:forEach>
+            <tbody></tbody>
         </table>
     </div>
 </div>
@@ -93,21 +88,27 @@
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="dateTime" class="col-form-label"><spring:message code="meal.dateTime"/></label>
+                        <label for="dateTime" class="col-form-label">
+                            <spring:message code="meal.dateTime"/>
+                        </label>
                         <input type="datetime-local" class="form-control" id="dateTime" name="dateTime"
-                               placeholder="<spring:message code="meal.dateTime"/>">
+                               placeholder="<spring:message code="meal.dateTime"/>" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="description" class="col-form-label"><spring:message
-                                code="meal.description"/></label>
+                        <label for="description" class="col-form-label">
+                            <spring:message code="meal.description"/>
+                        </label>
                         <input type="text" class="form-control" id="description" name="description"
-                               placeholder="<spring:message code="meal.description"/>">
+                               placeholder="<spring:message code="meal.description"/>" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="calories" class="col-form-label"><spring:message code="meal.calories"/></label>
-                        <input type="number" class="form-control" id="calories" name="calories" placeholder="1000">
+                        <label for="calories" class="col-form-label">
+                            <spring:message code="meal.calories"/>
+                        </label>
+                        <input type="number" class="form-control" id="calories" name="calories"
+                               placeholder="1000" required min="10" max="5000">
                     </div>
                 </form>
             </div>

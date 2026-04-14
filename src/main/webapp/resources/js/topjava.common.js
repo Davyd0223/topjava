@@ -8,7 +8,6 @@ function makeEditable(datatableApi) {
         failNoty(jqXHR);
     });
 
-    // solve problem with cache in IE: https://stackoverflow.com/a/4303862/548473
     $.ajaxSetup({cache: false});
 }
 
@@ -46,6 +45,11 @@ function updateTableByData(data) {
 }
 
 function save() {
+    // Валидация формы перед отправкой
+    if (!form[0].checkValidity()) {
+        form[0].reportValidity();
+        return;
+    }
     $.ajax({
         type: "POST",
         url: ctx.ajaxUrl,
@@ -95,5 +99,5 @@ function failNoty(jqXHR) {
         type: "error",
         layout: "bottomRight"
     });
-    failedNote.show()
+    failedNote.show();
 }
