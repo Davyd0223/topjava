@@ -23,8 +23,6 @@
 
     <script type="text/javascript">
         let i18n = {
-            "addTitle": "<spring:message code='addTitle'/>",
-            "editTitle": "<spring:message code='editTitle'/>",
             "common.confirm": "<spring:message code='common.confirm'/>",
             "common.deleted": "<spring:message code='common.deleted'/>",
             "common.saved": "<spring:message code='common.saved'/>",
