@@ -20,4 +20,15 @@
     <script src="webjars/datatables/1.13.5/js/jquery.dataTables.min.js" defer></script>
     <script src="webjars/datatables/1.13.5/js/dataTables.bootstrap4.min.js" defer></script>
     <script src="webjars/noty/3.1.4/lib/noty.min.js" defer></script>
+
+    <script type="text/javascript">
+        let i18n = {
+            "addTitle": "<spring:message code='addTitle'/>",
+            "editTitle": "<spring:message code='editTitle'/>",
+            "common.confirm": "<spring:message code='common.confirm'/>",
+            "common.deleted": "<spring:message code='common.deleted'/>",
+            "common.saved": "<spring:message code='common.saved'/>",
+            "common.errorStatus": "<spring:message code='common.errorStatus'/>"
+        }
+    </script>
 </head>

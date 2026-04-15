@@ -46,10 +46,6 @@ function updateTableByData(data) {
 
 function save() {
     // Валидация формы перед отправкой
-    if (!form[0].checkValidity()) {
-        form[0].reportValidity();
-        return;
-    }
     $.ajax({
         type: "POST",
         url: ctx.ajaxUrl,

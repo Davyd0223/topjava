@@ -54,9 +54,7 @@ $(function () {
             ],
             // Стиль строки в зависимости от excess
             "createdRow": function (row, data) {
-                if (data.excess) {
-                    $(row).addClass("excess");
-                }
+                $(row).attr('data-meal-excess', data.excess);
             },
             "order": [
                 [0, "desc"]

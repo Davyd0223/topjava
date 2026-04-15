@@ -5,16 +5,6 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<script type="text/javascript">
-    let i18n = {
-        "addTitle": "<spring:message code='addTitle'/>",
-        "editTitle": "<spring:message code='editTitle'/>",
-        "common.confirm": "<spring:message code='common.confirm'/>",
-        "common.deleted": "<spring:message code='common.deleted'/>",
-        "common.saved": "<spring:message code='common.saved'/>",
-        "common.errorStatus": "<spring:message code='common.errorStatus'/>"
-    }
-</script>
 <script type="text/javascript" src="resources/js/topjava.common.js" defer></script>
 <script type="text/javascript" src="resources/js/topjava.meals.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
@@ -80,7 +70,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="modalTitle"><spring:message code="meal.add"/></h4>
+                <h4 class="modal-title" id="modalTitle"></h4>
                 <button type="button" class="close" data-dismiss="modal" onclick="closeNoty()">&times;</button>
             </div>
             <div class="modal-body">
@@ -92,7 +82,7 @@
                             <spring:message code="meal.dateTime"/>
                         </label>
                         <input type="datetime-local" class="form-control" id="dateTime" name="dateTime"
-                               placeholder="<spring:message code="meal.dateTime"/>" required>
+                               placeholder="<spring:message code="meal.dateTime"/>">
                     </div>
 
                     <div class="form-group">
@@ -100,7 +90,7 @@
                             <spring:message code="meal.description"/>
                         </label>
                         <input type="text" class="form-control" id="description" name="description"
-                               placeholder="<spring:message code="meal.description"/>" required>
+                               placeholder="<spring:message code="meal.description"/>">
                     </div>
 
                     <div class="form-group">
@@ -108,7 +98,7 @@
                             <spring:message code="meal.calories"/>
                         </label>
                         <input type="number" class="form-control" id="calories" name="calories"
-                               placeholder="1000" required min="10" max="5000">
+                               placeholder="1000">
                     </div>
                 </form>
             </div>

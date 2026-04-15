@@ -3,10 +3,14 @@ package ru.javawebinar.topjava.web.meal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealTo;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -37,18 +41,14 @@ public class MealUIController extends AbstractMealController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@RequestParam(required = false) Integer id,
-                               @RequestParam String dateTime,
-                               @RequestParam String description,
-                               @RequestParam int calories) {
-        Meal meal = new Meal(id == null || id == 0 ? null : id,
-                LocalDateTime.parse(dateTime),
-                description,
-                calories);
+    public void createOrUpdate(@Valid Meal meal, BindingResult result) throws BindException {
+        if(result.hasErrors()) {
+            throw new BindException(result);
+        }
         if (meal.isNew()) {
             super.create(meal);
         } else {
-            super.update(meal, id);
+            super.update(meal, meal.id());
         }
     }
 
