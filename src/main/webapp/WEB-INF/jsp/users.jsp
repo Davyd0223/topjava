@@ -6,10 +6,6 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<script type="text/javascript">
-    i18n["addTitle"] = '<spring:message code="user.add"/>';
-    i18n["editTitle"] = '<spring:message code="user.edit"/>';
-</script>
 <script src="resources/js/topjava.common.js" defer></script>
 <script src="resources/js/topjava.users.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
@@ -83,7 +79,7 @@
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 <script type="text/javascript">
-    const i18n = {}; // https://learn.javascript.ru/object
+    const i18n = {};
     i18n["addTitle"] = '<spring:message code="user.add"/>';
     i18n["editTitle"] = '<spring:message code="user.edit"/>';
 
