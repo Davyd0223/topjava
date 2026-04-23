@@ -106,10 +106,11 @@ function renderDeleteBtn(data, type, row) {
 
 function failNoty(jqXHR) {
     closeNoty();
+
     let message = `<span class='fa fa-lg fa-exclamation-circle'></span> &nbsp;${i18n['common.errorStatus']}: ${jqXHR.status}`;
 
-    if (jqXHR.responseJSON && jqXHR.responseJSON.detail) {
-        message += "<br>" + jqXHR.responseJSON.detail;
+    if (jqXHR.responseJSON && jqXHR.responseJSON.details) {
+        message += "<br>" + jqXHR.responseJSON.details.join("<br>");
     }
 
     failedNote = new Noty({
