@@ -104,6 +104,7 @@ function renderDeleteBtn(data, type, row) {
     }
 }
 
+
 function failNoty(jqXHR) {
     closeNoty();
     var errorInfo = jqXHR.responseJSON;
